@@ -1,104 +1,36 @@
 package com.proyecto.turno.entidades;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-
-
 
 @Entity
 @Data
 public class Turno {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idturno;
-	
-	@Column(name = "Idpaciente")
-	private int idpaciente;
-	
-	@Column(name = "Idodontologo")
-	private int idodontologo;
-	
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idturno;
 
-	@Column(name = "FechaYHora")
-	private LocalDateTime FechaYHora;
-	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "estado")
-	private EstadoTurno estado;
+    @Column(name = "dnipaciente")
+    private String dnipaciente;
 
-public Turno() {
-	
-}
-	public Turno(int idpaciente, int idodontologo, LocalDateTime FechaYHora, EstadoTurno estado) {
-		super();
-		this.idpaciente = idpaciente;
-		this.idodontologo = idodontologo;
-		this.FechaYHora = FechaYHora;	
-		this.estado = estado;
-		
-	}
-	
-	
-	public int getIdturno() {
-		return idturno;
-	}
+    @Column(name = "dniodontologo")
+    private String dniodontologo;
 
-	public void setIdturno(int idturno) {
-		this.idturno = idturno;
-	}
+    @Column(name = "FechaYHora")
+    private LocalDateTime FechaYHora;
 
-	public int getIdpaciente() {
-		return idpaciente;
-	}
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado")
+    private EstadoTurno estado;
 
-	public void setIdpaciente(int idpaciente) {
-		this.idpaciente = idpaciente;
-	}
+    public Turno() {}
 
-	public int getIdodontologo() {
-		return idodontologo;
-	}
-
-	public void setIdodontologo(int idodontologo) {
-		this.idodontologo = idodontologo;
-	}
-
-
-
-
-
-	public LocalDateTime getFechaYHora() {
-		return FechaYHora;
-	}
-
-
-	public void setFechaYHora(LocalDateTime fechaYHora) {
-		FechaYHora = fechaYHora;
-	}
-
-
-	public Enum getEstado() {
-		return estado;
-	}
-
-
-	public void setEstado(EstadoTurno estado) {
-		this.estado = estado;
-	}
-
-
-	
-	
-	
+    public Turno(String dnipaciente, String dniodontologo, LocalDateTime FechaYHora, EstadoTurno estado) {
+        this.dnipaciente = dnipaciente;
+        this.dniodontologo = dniodontologo;
+        this.FechaYHora = FechaYHora;
+        this.estado = estado;
+    }
 }
