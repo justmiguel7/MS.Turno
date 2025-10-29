@@ -6,8 +6,11 @@ import com.proyecto.turno.entidades.Turno;
 
 public interface TurnoService {
     Turno agregarTurno(TurnoDTO turnoDTO) throws Exception;
-    Turno BuscarPorDniPaciente(String dnipaciente) throws Exception;
-    Turno BuscarPorDniOdontologo(String dniodontologo) throws Exception;
+    List<Turno> BuscarPorDniPaciente(String dnipaciente) throws Exception;
+    List<Turno> BuscarPorDniOdontologo(String dniodontologo) throws Exception;
     List<Turno> listado() throws Exception;
     void eliminar(int idturno) throws Exception;
+    
+    Turno confirmarTurno(int idturno, String dniOdontologo) throws Exception;
+
 }
