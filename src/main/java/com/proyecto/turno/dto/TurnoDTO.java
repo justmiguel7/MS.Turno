@@ -11,19 +11,19 @@ public class TurnoDTO {
     private int idturno;
     private String dnipaciente;
     private String dniodontologo;
-    private LocalDateTime FechaYHora;
+    private LocalDateTime fechaYHora;
     private EstadoTurno estado;
 
     public Turno toEntity(String codigo) {
-        return new Turno(this.dnipaciente, this.dniodontologo, this.FechaYHora, this.estado);
+        return new Turno(this.dnipaciente, this.dniodontologo, this.fechaYHora, this.estado);
     }
 
     public TurnoDTO() {}
 
-    public TurnoDTO(String dnipaciente, String dniodontologo, LocalDateTime FechaYHora, EstadoTurno estado) {
+    public TurnoDTO(String dnipaciente, String dniodontologo, LocalDateTime fechaYHora, EstadoTurno estado) {
         this.dnipaciente = dnipaciente;
         this.dniodontologo = dniodontologo;
-        this.FechaYHora = FechaYHora;
+        this.fechaYHora = fechaYHora;
         this.estado = estado;
     }
 }

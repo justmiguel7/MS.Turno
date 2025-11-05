@@ -1,20 +1,42 @@
 package com.proyecto.turno.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.proyecto.turno.dto.TurnoDTO;
 import com.proyecto.turno.entidades.EstadoTurno;
 import com.proyecto.turno.entidades.Turno;
 import com.proyecto.turno.repository.TurnoRepository;
-import com.proyecto.turno.dto.TurnoDTO;
 
 @Service
 public class TurnoServiceImp implements TurnoService {
 
     @Autowired
     private TurnoRepository turnoRepository;
+
+    @Override
+    public Turno crearTurnoPaciente(TurnoDTO turnoDTO) throws Exception {
+        // Normalizar la fecha
+        LocalDateTime fecha = turnoDTO.getFechaYHora().withNano(0);
+
+        // Verificar duplicado
+        if (turnoRepository.existsByFechaYHora(fecha)) {
+            throw new IllegalArgumentException("Ya existe un turno reservado para esa fecha y hora.");
+        }
+
+        // Crear turno
+        Turno turno = new Turno();
+        turno.setDnipaciente(turnoDTO.getDnipaciente());
+        turno.setDniodontologo(turnoDTO.getDniodontologo());
+        turno.setFechaYHora(fecha);
+        turno.setEstado(turnoDTO.getEstado() != null ? turnoDTO.getEstado() : EstadoTurno.PENDIENTE);
+
+        return turnoRepository.save(turno);
+    }
 
     @Override
     public Turno agregarTurno(TurnoDTO turnoDTO) throws Exception {
@@ -43,7 +65,7 @@ public class TurnoServiceImp implements TurnoService {
                 .orElseThrow(() -> new Exception("Turno no encontrado con ID: " + idturno));
         turnoRepository.delete(turno);
     }
-    
+
     @Override
     public Turno confirmarTurno(int idturno, String dniOdontologo) throws Exception {
         Turno turno = turnoRepository.findById(idturno)
@@ -55,8 +77,11 @@ public class TurnoServiceImp implements TurnoService {
 
         turno.setEstado(EstadoTurno.CONFIRMADO);
         turno.setDniodontologo(dniOdontologo);
-
         return turnoRepository.save(turno);
     }
-    
+
+    @Override
+    public boolean existsByFechaYHora(LocalDateTime fechaYHora) {
+        return turnoRepository.existsByFechaYHora(fechaYHora);
+    }
 }

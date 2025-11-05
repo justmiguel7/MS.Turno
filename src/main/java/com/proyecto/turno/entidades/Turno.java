@@ -19,7 +19,7 @@ public class Turno {
     private String dniodontologo;
 
     @Column(name = "FechaYHora")
-    private LocalDateTime FechaYHora;
+    private LocalDateTime fechaYHora;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
@@ -27,10 +27,10 @@ public class Turno {
 
     public Turno() {}
 
-    public Turno(String dnipaciente, String dniodontologo, LocalDateTime FechaYHora, EstadoTurno estado) {
+    public Turno(String dnipaciente, String dniodontologo, LocalDateTime fechaYHora, EstadoTurno estado) {
         this.dnipaciente = dnipaciente;
         this.dniodontologo = dniodontologo;
-        this.FechaYHora = FechaYHora;
+        this.fechaYHora = fechaYHora;
         this.estado = estado;
     }
 }
