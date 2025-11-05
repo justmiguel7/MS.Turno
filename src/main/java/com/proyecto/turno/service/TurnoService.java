@@ -14,4 +14,5 @@ public interface TurnoService {
     boolean existsByFechaYHora(LocalDateTime fechaYHora);
     Turno confirmarTurno(int idturno, String dniOdontologo) throws Exception;
     Turno crearTurnoPaciente(TurnoDTO turnoDTO) throws Exception;
+    Turno cancelarTurno(int idturno) throws Exception; 
 }

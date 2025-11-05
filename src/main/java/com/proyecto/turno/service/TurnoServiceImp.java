@@ -84,4 +84,20 @@ public class TurnoServiceImp implements TurnoService {
     public boolean existsByFechaYHora(LocalDateTime fechaYHora) {
         return turnoRepository.existsByFechaYHora(fechaYHora);
     }
+    
+    @Override
+    public Turno cancelarTurno(int idturno) throws Exception {
+        Turno turno = turnoRepository.findById(idturno)
+                .orElseThrow(() -> new Exception("Turno no encontrado con ID: " + idturno));
+
+        if (turno.getEstado() == EstadoTurno.CANCELADO) {
+            throw new Exception("El turno ya se encuentra cancelado.");
+        }
+
+
+
+        turno.setEstado(EstadoTurno.CANCELADO);
+        return turnoRepository.save(turno);
+    }
+    
 }

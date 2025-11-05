@@ -54,4 +54,14 @@ public class TurnoController {
         List<Turno> turnos = turnoService.BuscarPorDniOdontologo(dni);
         return new ResponseEntity<>(turnos, HttpStatus.OK);
     }
+    
+    @PutMapping("/cancelar/{idturno}")
+    public ResponseEntity<?> cancelarTurno(@PathVariable int idturno) {
+        try {
+            Turno turnoCancelado = turnoService.cancelarTurno(idturno);
+            return ResponseEntity.ok(turnoCancelado);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }
